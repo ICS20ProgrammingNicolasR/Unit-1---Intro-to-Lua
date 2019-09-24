@@ -24,7 +24,7 @@ myRectangle = display.newRect(0, 0, widthOfRectangle, heightOfRectangle)
 myRectangle.anchorX = 0
 myRectangle.anchorY = 0
 myRectangle.x = 400
-myRectangle.y = 300
+myRectangle.y = 350
 
 --set the width of the border
 myRectangle.strokeWidth = 20
@@ -50,3 +50,16 @@ areaText:setTextColor(0.7, 1, 1)
  myCircle = display.newCircle( 100, 100, 30 )
 myCircle:setFillColor( 0.5 )
 
+myCircle.anchorX=0
+myCircle.anchorY=0
+myCircle.x=300
+myCircle.Y=400
+
+myCircle.strokeWidth=20
+
+myCircle:setStrokeColor(0, 0.4, 0.7)
+
+areaOfCircle=radiusOfCircle*3.14159
+
+areaText=display.newText("The area of this Circle with a radius of \n"..
+	radiusOfCircle.."is".. areaOfCircle.."pixels².", 570, 250, Arial, textSize)
