@@ -18,7 +18,7 @@ display.setDefault("background", 180/255, 0/255, 40/255)
 local textObject
 
 --make the text object display my name 
-textObject = display.newText ("welcome User", 512, 358, nil, 90)
+textObject = display.newText ("welcome User", 512, 358,"Comic Sans MS", 90)
 
 --change the text colour 
 textObject:setTextColor(0/255, 60/255, 80/255)
