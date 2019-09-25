@@ -12,12 +12,14 @@ local backgroundImage=display.newImageRect("Images/background.jpg", 2048, 1536)
 --character image with width and height 
 local melleniumFalcon=display.newImageRect("Images/spaceship.png", 200, 200)
 
+--make a random number variable
+local randomNumber=math.random(1,5)
 --set image to be transparent
 melleniumFalcon.alpha=0
 
 --set the initial x and y position of the space ship
 melleniumFalcon.x=0
-melleniumFalcon.y=display.contentHeight/3
+melleniumFalcon.y=display.contentHeight/randomNumber
 
 --Function:MoveShip
 --Input:this function accepts an event lstener
