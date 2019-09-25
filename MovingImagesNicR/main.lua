@@ -10,7 +10,7 @@ scrollSpeed=3
 local backgroundImage=display.newImageRect("Images/background.jpg", 2048, 1536)
 
 --character image with width and height 
-local melleniumFalcon=display.newImageRect("Images/spaceship.png", 200, 200)
+local melleniumFalcon = display.newImageRect("Images/spaceship.png", 200, 200)
 
 --make a random number variable
 local randomNumber=math.random(1,5)
