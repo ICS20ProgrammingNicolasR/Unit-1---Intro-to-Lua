@@ -7,7 +7,7 @@
 scrollSpeed=3
 
 --background image with width and height
-local backgroundImage=display.newImageRect("Images/background.jpg", 2048, 1536)
+local backgroundImage=display.newImageRect("Images/background.png", 2048, 1536)
 
 --character image with width and height 
 local melleniumFalcon = display.newImageRect("Images/spaceship.png", 200, 200)
