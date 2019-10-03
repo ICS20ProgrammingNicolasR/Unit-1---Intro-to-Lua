@@ -18,8 +18,10 @@ redbutton.isVisible=false
 --create the text object
 local textObject=display.newText("Clicked!", 0,0,nil,50)
 textObject.x=display.contentWidth/2
-textObject.y=display.contentHeight/2
+textObject.y=display.contentHeight/3
 textObject.isVisible=false
+--sound variables
+local audio1 = audio.loadSound( "Sounds/Correct Answer Sound Effect.mp3" )
 --function:Blue button listener
 --input:touch listener
 --output:none
@@ -29,6 +31,7 @@ local function BlueButtonListener(touch)
 		spaceship.isVisible=false
 		redbutton.isVisible=true
 		textObject.isVisible=true
+		audio.play(audio1)
 	end
 	if(touch.phase=="ended")then
 		spaceship.isVisible=true
@@ -41,6 +44,7 @@ end
  		spaceship.isVisible=false
  		redbutton.isVisible=true
  		textObject.isVisible=true
+ 		audio.play(audio1)
  	end
  	if(touch.phase=="ended")then
  		spaceship.isVisible=true
