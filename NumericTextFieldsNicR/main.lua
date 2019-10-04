@@ -19,7 +19,9 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
-local textObject=display.newText("That is incorrect:(",display.contentWidth/2,display.contentHeight*2/3,nil,50)
+local textObject=display.newText("That is incorrect:(.You lose one life",display.contentWidth/2,display.contentHeight*2/3,nil,50)
+local points=0
+local lives=3
 
 --------------------------------------------------------------------------------------------
 --local functions
@@ -37,7 +39,7 @@ local function AskQuestion()
 
 end
 
-local function HideCorect()
+local function HideCorect()	
 	correctObject.isVisible=false
 	textObject.isVisible=false
 	AskQuestion()
@@ -59,11 +61,37 @@ local function NumericFieldListener(event)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
 			textObject.isVisible=false
+			--give one point
+			points=points+1
+			--update it in display object
+			pointsText.text="points ="..points
+			if(points==5)then
+				questionObject.isVisible=false
+				correctObject.isVisible=false
+				numericField.isVisible=false
+				textObject.isVisible=false
+				local new image =display.newImageRect("Images/you won.jpg",2048,1536)
+				new image.anchorX=0
+				new image.anchorY=0
+			end				
 		else
 			textObject.isVisible=true
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
 			correctObject.isVisible=false
+			lives=lives-1
+			livesText.text="lives ="..lives
+			if(lives==0)then			
+				questionObject.isVisible=false
+				correctObject.isVisible=false
+				numericField.isVisible=false
+				textObject.isVisible=false
+				pointsText.isVisible=false
+				livesText.isVisible=false
+				local bad image=display.newImageRect("Images/you lost.jpg",2048,1536)
+				bad image.anchorX=0
+				bad image.anchorY=0
+			end
 		end 
 		--clear text field 
 		event.target.text=""
@@ -80,7 +108,7 @@ questionObject=display.newText("", display.contentWidth/3,display.contentHeight/
 questionObject:setTextColor(255/255, 2/255, 198/255)
 
 --create the correct text object and make it invisible 
-correctObject=display.newText("Correct", display.contentWidth/2, display.contentHeight*2/3,nil,50)
+correctObject=display.newText("Correct.You gain a point! Good Job:)", display.contentWidth/2, display.contentHeight*2/3,nil,50)
 correctObject:setTextColor(255/255, 42/255, 198/255)
 correctObject.isVisible=false
 
@@ -92,6 +120,8 @@ numericField.inputType="number"
 numericField:addEventListener("userInput", NumericFieldListener)
 textObject.isVisible=false
 textObject:setTextColor(255/255, 2/255, 198/255)
+pointsText = display.newText("Points ="..points, display.contentWidth/3,display.contentHeight/3,nil,50)
+livesText = display.newText("Lives ="..lives, display.contentWidth/4,display.contentHeight/4,nil,50)
 --------------------------------------------------------------------------------------------------
 --function calls
 --------------------------------------------------------------------------------------------------
