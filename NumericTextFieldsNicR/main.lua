@@ -19,23 +19,44 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
-local textObject=display.newText("That is incorrect:(.You lose one life",display.contentWidth/2,display.contentHeight*2/3,nil,50)
+local textObject
 local points=0
 local lives=3
-
+local randomNumber3 
+local randomNumber4 
+local randomNumber5
 --------------------------------------------------------------------------------------------
 --local functions
 --------------------------------------------------------------------------------------------
 
 local function AskQuestion()
+	--generate a random number between 1-4
+	randomOperator=math.random(1,4)
 	-- generate 2 random numbers between a max. and a min. number
 	randomNumber1=math.random(0,10)
 	randomNumber2=math.random(0,10)
 
-	correctAnswer=randomNumber1+randomNumber2
+	--if the randomOperator==1 then do adition
+	if(randomOperator==1)then
+		correctAnswer=randomNumber1+randomNumber2
 
-	--create question in text correctObject
-	questionObject.text=randomNumber1.."+"..randomNumber2.."="
+	--create question in text Object
+	questionObject.text=randomNumber1.." + "..randomNumber2.." = "
+	--if it is 2 do subtraction
+	elseif(randomOperator==2)then
+		correctAnswer=randomNumber1-randomNumber2
+		--create question in textObject
+		questionObject.text=randomNumber1.." - "..randomNumber2.." = "
+	elseif(randomOperator==3)then
+		correctAnswer=randomNumber1*randomNumber2
+		questionObject.text=randomNumber1.." x "..randomNumber2.." = "
+	elseif(randomOperator==4)then
+		randomNumber4=math.random(1,10)
+		randomNumber3=math.random(1,10)
+		randomNumber5=randomNumber4*randomNumber3
+		correctAnswer=randomNumber5/randomNumber4
+		questionObject.text=randomNumber5 .. " / "..randomNumber4.."="
+	end
 
 end
 
@@ -70,9 +91,9 @@ local function NumericFieldListener(event)
 				correctObject.isVisible=false
 				numericField.isVisible=false
 				textObject.isVisible=false
-				local new image =display.newImageRect("Images/you won.jpg",2048,1536)
-				new image.anchorX=0
-				new image.anchorY=0
+				local newimage =display.newImageRect("Images/you won.jpg",2048/2,1536/2)
+				newimage.anchorX=0
+				newimage.anchorY=0
 			end				
 		else
 			textObject.isVisible=true
@@ -88,9 +109,10 @@ local function NumericFieldListener(event)
 				textObject.isVisible=false
 				pointsText.isVisible=false
 				livesText.isVisible=false
-				local bad image=display.newImageRect("Images/you lost.jpg",2048,1536)
-				bad image.anchorX=0
-				bad image.anchorY=0
+				local badimage=display.newImageRect("Images/you lost.jpg",2048/2,1536/2)
+				badimage.anchorX=0
+				badimage.anchorY=0
+				timer.performWithDelay(1000)
 			end
 		end 
 		--clear text field 
@@ -111,6 +133,8 @@ questionObject:setTextColor(255/255, 2/255, 198/255)
 correctObject=display.newText("Correct.You gain a point! Good Job:)", display.contentWidth/2, display.contentHeight*2/3,nil,50)
 correctObject:setTextColor(255/255, 42/255, 198/255)
 correctObject.isVisible=false
+--create the incorrect text objecti
+textObject=display.newText("That is incorrect:(.You lose one life.",display.contentWidth/2,display.contentHeight*2/3,nil,50)
 
 --create a numeric field
 numericField=native.newTextField(display.contentWidth/2, display.contentHeight/2, 150,80)
