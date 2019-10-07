@@ -6,7 +6,14 @@
 
 --set the background colour
 display.setDefault("background",50/255, 100/255, 199/255)
-
+local youlostImage=display.newImageRect("Images/you lost.jpg", 2048/2, 1536/2)
+youlostImage.isVisible=false
+youlostImage.anchorX=0
+youlostImage.anchorY=0
+local youwonimage=display.newImageRect("Images/you won.jpg",2048/2,1536/2)
+youwonimage.isVisible=false
+youwonimage.anchorX=0
+youwonimage.anchorY=0
 ------------------------------------------------------------------------------------------
 --local variables
 ------------------------------------------------------------------------------------------
@@ -69,10 +76,10 @@ local function NumericFieldListener(event)
 				questionObject.isVisible=false
 				correctObject.isVisible=false
 				numericField.isVisible=false
+				pointsText.isVisible=false
+				livesText.isVisible=false
 				textObject.isVisible=false
-				local new image =display.newImageRect("Images/you won.jpg",2048,1536)
-				new image.anchorX=0
-				new image.anchorY=0
+				youwonimage.isVisible=true
 			end				
 		else
 			textObject.isVisible=true
@@ -88,9 +95,7 @@ local function NumericFieldListener(event)
 				textObject.isVisible=false
 				pointsText.isVisible=false
 				livesText.isVisible=false
-				local bad image=display.newImageRect("Images/you lost.jpg",2048,1536)
-				bad image.anchorX=0
-				bad image.anchorY=0
+				youlostImage.isVisible=true
 			end
 		end 
 		--clear text field 

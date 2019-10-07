@@ -12,7 +12,7 @@ local heightOfRectangle = 200
 local areaOfRectangle
 local myRectangle
 local myCircle
-local radiusOfCircle = 200D
+local radiusOfCircle = 200
 local areaOfCircle
 -- set the background colou of my screen. Colours are between 0-1
 display.setDefault("background", 50/255, 200/255, 300/255)
