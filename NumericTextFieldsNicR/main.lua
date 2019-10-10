@@ -51,18 +51,19 @@ local function AskQuestion()
 	questionObject.text=randomNumber1.." + "..randomNumber2.." = "
 	--if it is 2 do subtraction
 	elseif(randomOperator==2)then
-		correctAnswer=randomNumber1-randomNumber2
+		correctAnswer=randomNumber1*randomNumber2-randomNumber2
+		randomNumber6=randomNumber1*randomNumber2
 		--create question in textObject
-		questionObject.text=randomNumber1.." - "..randomNumber2.." = "
+		questionObject.text=randomNumber6.." - "..randomNumber2.." = "
 	elseif(randomOperator==3)then
 		correctAnswer=randomNumber1*randomNumber2
 		questionObject.text=randomNumber1.." x "..randomNumber2.." = "
 	elseif(randomOperator==4)then
-		randomNumber4=math.random(1,10)
-		randomNumber3=math.random(1,10)
+		randomNumber4=math.random(0,10)
+		randomNumber3=math.random(0,10)
 		randomNumber5=randomNumber4*randomNumber3
 		correctAnswer=randomNumber5/randomNumber4
-		questionObject.text=randomNumber5 .. " / "..randomNumber4.."="
+		questionObject.text=randomNumber5 .. " / "..randomNumber4.." = "
 	end
 
 end
@@ -137,7 +138,7 @@ end
 ------------------------------------------------------------------------------------------------
 
 -- display a question and sets the colour 
-questionObject=display.newText("", display.contentWidth/3,display.contentHeight/2,nil,50)
+questionObject=display.newText("", display.contentWidth/4,display.contentHeight/2,nil,50)
 questionObject:setTextColor(255/255, 2/255, 198/255)
 
 --create the correct text object and make it invisible 
