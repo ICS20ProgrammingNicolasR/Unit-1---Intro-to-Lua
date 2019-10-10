@@ -55,6 +55,13 @@ local function AskQuestion()
 		randomNumber6=randomNumber1*randomNumber2
 		--create question in textObject
 		questionObject.text=randomNumber6.." - "..randomNumber2.." = "
+			if (randomNumber1<randomNumber2)then
+				correctAnswer=randomNumber2-randomNumber1
+				--create question in textObject
+				questionObject.text=randomNumber2.." - "..randomNumber1.." = "
+			end
+		correctAnswer=randomNumber1-randomNumber2
+		questionObject.text=randomNumber1.." - "..randomNumber2.." = "
 	elseif(randomOperator==3)then
 		correctAnswer=randomNumber1*randomNumber2
 		questionObject.text=randomNumber1.." x "..randomNumber2.." = "
@@ -105,9 +112,10 @@ local function NumericFieldListener(event)
 				local newimage =display.newImageRect("Images/you won.jpg",2048/2,1536/2)
 				newimage.anchorX=0
 				newimage.anchorY=0
-			end				
+			end			
 		else
 			textObject.isVisible=true
+			textObject.text=("That is incorrect:(.You lose one life.\n".."The correct answer is "..correctAnswer)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
 			correctObject.isVisible=false
@@ -146,8 +154,8 @@ correctObject=display.newText("Correct.You gain a point! Good Job:)", display.co
 correctObject:setTextColor(255/255, 42/255, 198/255)
 correctObject.isVisible=false
 --create the incorrect text objecti
-textObject=display.newText("That is incorrect:(.You lose one life.",display.contentWidth/2,display.contentHeight*2/3,nil,50)
-
+textObject=display.newText("That is incorrect:(.You lose one life.\n".."The correct answer is ",display.contentWidth/2,display.contentHeight*2/3,nil,50)
+textObject.isVisible=false
 --create a numeric field
 numericField=native.newTextField(display.contentWidth/2, display.contentHeight/2, 150,80)
 numericField.inputType="number"

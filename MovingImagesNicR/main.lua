@@ -39,11 +39,9 @@ Runtime:addEventListener("enterFrame", MoveShip)
 local tiefighter=display.newImageRect("images/tiefighterjpg.jpg", 200,200)
 
 --set tiefighter transparent
-tiefighter.alpa=0
 
 --set initial x and y of tie fighter
-tiefighter.x=500
-tiefighter.y=0
+
 
 --Function:MoveShip
 --Input:this function accepts an event lstener
@@ -51,9 +49,7 @@ tiefighter.y=0
 --Description this function adds the scroll speed ti the x-value of the ship 
 local function MoveShip(event)
 	-- add the scrollSpeedto the y value of the ship 
-	tiefighter.y=tiefighter.y+scrollSpeed
-	--change the transparancy of the ship every time it moves so that it fades into the program
-	tiefighter.alpha=tiefighter.alpha+0.01
+
 end
 
 --Move ship will be called over and over again
