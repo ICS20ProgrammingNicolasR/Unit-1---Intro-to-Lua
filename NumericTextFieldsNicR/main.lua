@@ -32,6 +32,26 @@ local lives=3
 local randomNumber3 
 local randomNumber4 
 local randomNumber5
+--variables for timer
+local totalseconds=5
+local secondsleft
+local clockText 
+local countDownTimer
+local heart1
+local heart2
+local heart3
+local heart4
+--------------------------------------------------------------------------------------------
+--SOUNDS
+--------------------------------------------------------------------------------------------
+
+--Icorrect sound 
+local incorrectsound=audio.loadSound( "sounds/wrong buzzer.wav")
+local incorrectsoundchannel
+
+--correct sound 
+correctsound=audio.loadSound("sounds/correct sound.wav")
+local correctsoundchannel
 --------------------------------------------------------------------------------------------
 --local functions
 --------------------------------------------------------------------------------------------
@@ -51,17 +71,13 @@ local function AskQuestion()
 	questionObject.text=randomNumber1.." + "..randomNumber2.." = "
 	--if it is 2 do subtraction
 	elseif(randomOperator==2)then
-		correctAnswer=randomNumber1*randomNumber2-randomNumber2
-		randomNumber6=randomNumber1*randomNumber2
-		--create question in textObject
-		questionObject.text=randomNumber6.." - "..randomNumber2.." = "
-			if (randomNumber1<randomNumber2)then
-				correctAnswer=randomNumber2-randomNumber1
-				--create question in textObject
-				questionObject.text=randomNumber2.." - "..randomNumber1.." = "
-			end
 		correctAnswer=randomNumber1-randomNumber2
+		--create question in textObject
 		questionObject.text=randomNumber1.." - "..randomNumber2.." = "
+		if (randomNumber1<randomNumber2)then
+			correctAnswer=randomNumber2-randomNumber1
+			questionObject.text=randomNumber2.." - "..randomNumber1.." = "
+		end
 	elseif(randomOperator==3)then
 		correctAnswer=randomNumber1*randomNumber2
 		questionObject.text=randomNumber1.." x "..randomNumber2.." = "
@@ -94,6 +110,7 @@ local function NumericFieldListener(event)
 		--if the users answer and the correct answer are the same:
 		if (userAnswer==correctAnswer)then
 			correctObject.isVisible=true 
+			correctsoundchannel=audio.play(correctsound)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
 			textObject.isVisible=false
@@ -115,12 +132,14 @@ local function NumericFieldListener(event)
 			end			
 		else
 			textObject.isVisible=true
+			incorrectsoundchannel=audio.play(incorrectsound)
 			textObject.text=("That is incorrect:(.You lose one life.\n".."The correct answer is "..correctAnswer)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
 			correctObject.isVisible=false
 			lives=lives-1
 			livesText.text="lives ="..lives
+
 			if(lives==0)then			
 				questionObject.isVisible=false
 				correctObject.isVisible=false
@@ -145,6 +164,18 @@ end
 -- Object Ceation
 ------------------------------------------------------------------------------------------------
 
+--create the lives
+heart1=display.newImageRect("Images/hearts.png", 100, 100)
+heart1.x=display.contentWidth*9/10
+heart1.y=display.contentHeight*1/7
+
+heart2=display.newImageRect("Images/hearts.png", 100, 100)
+heart2.x=display.contentWidth*8/10
+heart2.y=display.contentHeight*1/7
+
+heart3=display.newImageRect("Images/hearts.png", 100, 100)
+heart3.x=display.contentWidth*7/10
+heart3.y=display.contentHeight*1/7
 -- display a question and sets the colour 
 questionObject=display.newText("", display.contentWidth/4,display.contentHeight/2,nil,50)
 questionObject:setTextColor(255/255, 2/255, 198/255)
