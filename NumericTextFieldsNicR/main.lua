@@ -28,13 +28,13 @@ local userAnswer
 local correctAnswer
 local textObject
 local points=0
-local lives=3
+local lives=4
 local randomNumber3 
 local randomNumber4 
 local randomNumber5
 --variables for timer
-local totalseconds=5
-local secondsleft
+local totalseconds=10
+local secondsleft=10
 local clockText 
 local countDownTimer
 local heart1
@@ -113,17 +113,17 @@ local function NumericFieldListener(event)
 			correctsoundchannel=audio.play(correctsound)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
+			secondsleft=totalseconds
 			textObject.isVisible=false
 			--give one point
 			points=points+1
 			--update it in display object
-			pointsText.text="points ="..points
+			pointsText.text="points = "..points
 			if(points==5)then
 				questionObject.isVisible=false
 				correctObject.isVisible=false
 				numericField.isVisible=false
 				pointsText.isVisible=false
-				livesText.isVisible=false
 				textObject.isVisible=false
 				youwonimage.isVisible=true
 				local newimage =display.newImageRect("Images/you won.jpg",2048/2,1536/2)
@@ -131,22 +131,29 @@ local function NumericFieldListener(event)
 				newimage.anchorY=0
 			end			
 		else
+			if (lives==4)then
+			heart4.isVisible=false
+			elseif(lives==3)then
+				heart3.isVisible=false
+			elseif(lives==2) then
+				heart2.isVisible=false
+			elseif(lives==1)then
+				heart1.isVisible=false
+			end
 			textObject.isVisible=true
 			incorrectsoundchannel=audio.play(incorrectsound)
 			textObject.text=("That is incorrect:(.You lose one life.\n".."The correct answer is "..correctAnswer)
 			timer.performWithDelay(2000,HideCorrect)
 			AskQuestion()
+			secondsleft=totalseconds
 			correctObject.isVisible=false
 			lives=lives-1
-			livesText.text="lives ="..lives
-
 			if(lives==0)then			
 				questionObject.isVisible=false
 				correctObject.isVisible=false
 				numericField.isVisible=false
 				textObject.isVisible=false
 				pointsText.isVisible=false
-				livesText.isVisible=false
 				youlostImage.isVisible=true
 				local badimage=display.newImageRect("Images/you lost.jpg",2048/2,1536/2)
 				badimage.anchorX=0
@@ -160,6 +167,47 @@ local function NumericFieldListener(event)
 	end
 end
 
+local function Updatetime()
+	-- decrement the number of seconds
+	secondsleft=secondsleft-1
+
+	--display the number of seconds in a clock 
+	clockText.text=secondsleft..""
+	if(secondsleft==0) then
+		secondsleft=totalseconds
+		textObject.isVisible=true
+		textObject.text=("You ran out of time :(.You lose one life.\n".."The correct answer is "..correctAnswer)
+		lives=lives-1
+		if (lives==4)then
+			heart4.isVisible=false
+		elseif(lives==3)then
+			heart3.isVisible=false
+		elseif(lives==2) then
+			heart2.isVisible=false
+		elseif(lives==1)then
+			heart1.isVisible=false
+		else
+			questionObject.isVisible=false
+			correctObject.isVisible=false
+			numericField.isVisible=false
+			textObject.isVisible=false
+			pointsText.isVisible=false
+			youlostImage.isVisible=true
+			badimage=display.newImageRect("Images/you lost.jpg",2048/2,1536/2)
+			badimage.anchorX=0
+			badimage.anchorY=0
+			timer.performWithDelay(1000)
+		end
+		AskQuestion()
+	end
+end
+
+--call the timer
+local function StartTimer()
+	-- create a countDown Timer that loops infinitely
+	countDownTimer=timer.performWithDelay( 1000, Updatetime, 0)
+end
+StartTimer()
 ------------------------------------------------------------------------------------------------
 -- Object Ceation
 ------------------------------------------------------------------------------------------------
@@ -176,6 +224,10 @@ heart2.y=display.contentHeight*1/7
 heart3=display.newImageRect("Images/hearts.png", 100, 100)
 heart3.x=display.contentWidth*7/10
 heart3.y=display.contentHeight*1/7
+
+heart4=display.newImageRect("Images/hearts.png", 100, 100)
+heart4.x=display.contentWidth*6/10
+heart4.y=display.contentHeight*1/7
 -- display a question and sets the colour 
 questionObject=display.newText("", display.contentWidth/4,display.contentHeight/2,nil,50)
 questionObject:setTextColor(255/255, 2/255, 198/255)
@@ -196,7 +248,10 @@ numericField:addEventListener("userInput", NumericFieldListener)
 textObject.isVisible=false
 textObject:setTextColor(255/255, 2/255, 198/255)
 pointsText = display.newText("Points ="..points, display.contentWidth/3,display.contentHeight/3,nil,50)
-livesText = display.newText("Lives ="..lives, display.contentWidth/4,display.contentHeight/4,nil,50)
+
+clockText=display.newText("seconds left = 10", display.contentWidth/3, display.contentHeight/5, nil, 50)
+clockText:setTextColor(255/255, 2/255, 198/255)
+clockText.isVisible=true
 --------------------------------------------------------------------------------------------------
 --function calls
 --------------------------------------------------------------------------------------------------
